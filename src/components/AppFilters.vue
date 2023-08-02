@@ -16,17 +16,11 @@
 </template>
 
 <script setup lang="ts">
+import { EFilters } from '@/enums/filters'
 import AllItemsIcon from './icons/AllItemsIcon.vue'
 import ArmorIcon from './icons/ArmorIcon.vue'
 import WeaponIcon from './icons/WeaponIcon.vue'
 import MiscIcon from './icons/MiscIcon.vue'
-
-const enum EFilters {
-  ALL_ITEMS = 'All Items',
-  ARMOR = 'Armor',
-  WEAPON = 'Weapon',
-  MISC = 'Misc'
-}
 
 defineProps<{
   activeFilter: string

@@ -11,6 +11,7 @@ import { ref, toRaw, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useItemsStore } from '@/stores'
+import { EFilters } from '@/enums/filters'
 import AppTabs from './AppTabs.vue'
 import AppFilters from './AppFilters.vue'
 import AppItemsContainer from './AppItemsContainer.vue'
@@ -18,20 +19,20 @@ import AppItemsContainer from './AppItemsContainer.vue'
 const route = useRoute()
 const store = useItemsStore()
 const { allItems, armors, weapons, miscs } = storeToRefs(store)
-const { fetchItems, armorItems, weaponItems, miscItems } = store
+const { fetchItems } = store
 
 let query = route.query.case?.toString()
 const itemsToShaw = ref(toRaw(allItems))
 
 const tab = ref('')
-const filterName = ref('All Items')
+let filterName = ref(EFilters.ALL_ITEMS)
 
 const changeTab = (tabName: string) => {
   tab.value = tabName
-  filterName.value = 'ALL ITEMS'
+  filterName.value = EFilters.ALL_ITEMS
 }
 
-const filterBy = async (filterBy: string) => {
+const filterBy = async (filterBy: EFilters) => {
   filterName.value = filterBy
 }
 
@@ -47,16 +48,16 @@ watch(
   () => filterName.value,
   async (newVal) => {
     switch (newVal) {
-      case 'Armor':
-        await armorItems(query)
+      case EFilters.ARMOR:
+        await fetchItems(query)
         itemsToShaw.value = armors.value
         break
-      case 'Weapon':
-        await weaponItems(query)
+      case EFilters.WEAPON:
+        await fetchItems(query)
         itemsToShaw.value = weapons.value
         break
-      case 'Misc':
-        await miscItems(query)
+      case EFilters.MISC:
+        await fetchItems(query)
         itemsToShaw.value = miscs.value
         break
       default:

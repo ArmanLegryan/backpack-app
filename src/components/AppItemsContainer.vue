@@ -5,16 +5,15 @@
       <div class="items-section">
         <div v-for="i in 40" :key="i" class="item-wrapper">
           <app-item
-            v-if="itemsToShaw[i]"
-            :key="itemsToShaw[i].id"
-            :id="itemsToShaw[i].id"
-            :type="itemsToShaw[i].type"
-            :name="itemsToShaw[i].name"
-            :image-url="itemsToShaw[i].imageUrl"
-            :count="itemsToShaw[i].count"
-            :charges="itemsToShaw[i].charges"
-            :max-charges="itemsToShaw[i].maxCharges"
-            :cooldown="itemsToShaw[i].cooldown"
+            v-if="itemsToShaw[i - 1]"
+            :id="itemsToShaw[i - 1].id"
+            :type="itemsToShaw[i - 1].type"
+            :name="itemsToShaw[i - 1].name"
+            :image-url="itemsToShaw[i - 1].imageUrl"
+            :count="itemsToShaw[i - 1].count"
+            :charges="itemsToShaw[i - 1].charges"
+            :max-charges="itemsToShaw[i - 1].maxCharges"
+            :cooldown="itemsToShaw[i - 1].cooldown"
           />
         </div>
       </div>
