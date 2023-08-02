@@ -3,18 +3,20 @@
     <p class="title">{{ title }}</p>
     <div class="scroll">
       <div class="items-section">
-        <app-item
-          v-for="item in itemsToShaw"
-          :key="item.id"
-          :id="item.id"
-          :type="item.type"
-          :name="item.name"
-          :image-url="item.imageUrl"
-          :count="item.count"
-          :charges="item.charges"
-          :max-charges="item.maxCharges"
-          :cooldown="item.cooldown"
-        />
+        <div v-for="i in 40" :key="i" class="item-wrapper">
+          <app-item
+            v-if="itemsToShaw[i]"
+            :key="itemsToShaw[i].id"
+            :id="itemsToShaw[i].id"
+            :type="itemsToShaw[i].type"
+            :name="itemsToShaw[i].name"
+            :image-url="itemsToShaw[i].imageUrl"
+            :count="itemsToShaw[i].count"
+            :charges="itemsToShaw[i].charges"
+            :max-charges="itemsToShaw[i].maxCharges"
+            :cooldown="itemsToShaw[i].cooldown"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -53,5 +55,12 @@ defineProps<{
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   gap: 0px 0px;
+}
+
+.item-wrapper {
+  border: 1px solid #454545;
+  background-color: var(--dark-tertiary);
+  height: 94px;
+  width: 94px;
 }
 </style>

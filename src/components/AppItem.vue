@@ -1,6 +1,5 @@
 <template>
   <div class="item" :class="backlight">
-    <span class="tooltip">{{ name }}</span>
     <span v-if="charges && maxCharges" class="charges">{{ charges }} / {{ maxCharges }}</span>
     <img :src="imageUrl" :alt="name" class="image" />
     <span v-if="count" class="count">x{{ count }}</span>
@@ -25,23 +24,9 @@ const backlight = computed(() => {
 <style scoped>
 .item {
   position: relative;
-  border: 1px solid #454545;
-  background-color: var(--dark-tertiary);
   font-family: 'JetBrains Mono', monospace;
-}
-
-.item .tooltip {
-  opacity: 0;
-  position: absolute;
-  background-color: black;
-  color: white;
-  top: 0;
-  left: 0;
-}
-
-.item:hover .tooltip {
-  opacity: 1;
-  z-index: 10;
+  height: 100%;
+  width: 100%;
 }
 
 .item .image {
