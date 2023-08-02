@@ -1,5 +1,6 @@
 <template>
-  <div class="item" :class="backlight">
+  <div class="item" :class="backlight" @mousemove="showTooltip($event)">
+    <span class="tooltip" ref="tooltip">{{ name }}</span>
     <span v-if="charges && maxCharges" class="charges">{{ charges }} / {{ maxCharges }}</span>
     <img :src="imageUrl" :alt="name" class="image" />
     <span v-if="count" class="count">x{{ count }}</span>
@@ -14,11 +15,20 @@ import Cooldown from './Cooldown.vue'
 
 const props = defineProps<IItem>()
 
+const tooltip = ref(null)
+
 const backlight = computed(() => {
   if (props.type === 'armor') return 'bg-blue'
   if (props.type === 'weapon') return 'bg-purple'
   return null
 })
+
+function showTooltip(event: MouseEvent) {
+  let x = event.clientX
+  let y = event.clientY
+  tooltip.value.style.top = y + 10 + 'px'
+  tooltip.value.style.left = x + 10 + 'px'
+}
 </script>
 
 <style scoped>
@@ -64,5 +74,19 @@ const backlight = computed(() => {
   background-repeat: no-repeat;
   background-position: center;
   background-size: initial;
+}
+
+.tooltip {
+  display: none;
+  z-index: 9;
+  padding: 6px 20px;
+  background-color: var(--dark-primary);
+  border: 2px solid var(--dark-secondary);
+  border-radius: 24px;
+}
+
+.item:hover .tooltip {
+  display: block;
+  position: fixed;
 }
 </style>
