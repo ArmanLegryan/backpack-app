@@ -15,7 +15,7 @@ import Cooldown from './Cooldown.vue'
 
 const props = defineProps<IItem>()
 
-const tooltip = ref(null)
+const tooltip = ref<HTMLSpanElement | null>(null)
 
 const backlight = computed(() => {
   if (props.type === 'armor') return 'bg-blue'
@@ -23,11 +23,11 @@ const backlight = computed(() => {
   return null
 })
 
-function showTooltip(event: MouseEvent) {
+const showTooltip = (event: MouseEvent) => {
   let x = event.clientX
   let y = event.clientY
-  tooltip.value.style.top = y + 10 + 'px'
-  tooltip.value.style.left = x + 10 + 'px'
+  tooltip.value!.style.top = y + 10 + 'px'
+  tooltip.value!.style.left = x + 10 + 'px'
 }
 </script>
 
