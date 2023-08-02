@@ -20,7 +20,7 @@ const store = useItemsStore()
 const { allItems, armors, weapons, miscs } = storeToRefs(store)
 const { fetchItems, armorItems, weaponItems, miscItems } = store
 
-let query = route.query.case
+let query = route.query.case?.toString()
 const itemsToShaw = ref(toRaw(allItems))
 
 const tab = ref('')
@@ -38,7 +38,7 @@ const filterBy = async (filterBy: string) => {
 watch(
   () => route.query,
   async (newValue) => {
-    query = newValue?.case
+    query = newValue?.case?.toString()
     await fetchItems(query?.toString())
   }
 )
@@ -48,19 +48,19 @@ watch(
   async (newVal) => {
     switch (newVal) {
       case 'Armor':
-        await armorItems(query?.toString())
+        await armorItems(query)
         itemsToShaw.value = armors.value
         break
       case 'Weapon':
-        await weaponItems(query?.toString())
+        await weaponItems(query)
         itemsToShaw.value = weapons.value
         break
       case 'Misc':
-        await miscItems(query?.toString())
+        await miscItems(query)
         itemsToShaw.value = miscs.value
         break
       default:
-        await fetchItems(query?.toString())
+        await fetchItems(query)
         itemsToShaw.value = allItems.value
         break
     }
